@@ -33,25 +33,16 @@ router.get('/:id', (req, res) => {
     where: {
       id: req.params.id
     },
-    include: [
-      {
-        model: Product,
-        through: ProductTag,
-        attributes: ['product_name']
-      }
-    ]
-  })
-  .then(dbTagData => {
-    if (!dbProductData) {
-      res.status(404).json({message: 'No tag found with this id'});
-      return;
+    include: {
+      model: Product,
+      attributes: ['product_name', 'price', 'stock', 'category_id']
     }
-    res.json(dbTagData);
   })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json(err);
-  });
+    .then(dbTagData => res.json(dbTagData))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.post('/', (req, res) => {
