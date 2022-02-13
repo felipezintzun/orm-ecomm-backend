@@ -42,12 +42,12 @@ router.get('/:id', (req, res) => {
       }
     ]
   })
-  .then(dbPostData => {
-    if (!dbPostData) {
-      res.status(404).json({ message: 'No post found with this id' });
+  .then(dbProductData => {
+    if (!dbProductData) {
+      res.status(404).json({message: 'No product found with this id'});
       return;
     }
-    res.json(dbPostData);
+    res.json(dbProductData);
   })
   .catch(err => {
     console.log(err);
